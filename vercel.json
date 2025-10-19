@@ -1,0 +1,14 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/meista",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/lomake",
+      "destination": "/index.html"
+    }
+  ]
+}
