@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiitos yhteydenotosta – Älykonsultti</title>
+    <meta name="description" content="Kiitos yhteydenotostasi. Varaa maksuton tekoälykartoitus kalenteristamme.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- GA4 tracking code goes here -->
+    
+    <style>
+        /* Kiitos-sivun erikoistyylit */
+        .thank-you-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--white) 100%);
+            padding: 2rem;
+        }
+
+        .thank-you-content {
+            text-align: center;
+            max-width: 800px;
+            background: var(--white);
+            padding: 4rem 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: scaleIn 0.6s ease;
+        }
+
+        .thank-you-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+
+        .thank-you-content p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .calendly-container {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: var(--light-bg);
+            border-radius: 15px;
+            border: 2px dashed var(--primary-blue);
+        }
+
+        .calendly-placeholder {
+            font-size: 1.1rem;
+            color: var(--dark-blue);
+            padding: 3rem;
+            background: var(--white);
+            border-radius: 10px;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--dark-blue);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-home:hover {
+            color: var(--secondary-peach);
+            transform: translateX(-5px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .info-box {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .info-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+
+        .info-box p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .thank-you-content {
+                padding: 3rem 2rem;
+            }
+
+            .thank-you-content h1 {
+                font-size: 2rem;
+            }
+
+            .success-icon {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- KIITOS-OSIO -->
+    <section class="thank-you-section">
+        <div class="thank-you-content">
+            
+            <div class="success-icon">✅</div>
+            
+            <h1>Kiitos, yhteydenottosi on vastaanotettu!</h1>
+            
+            <p>Olemme saaneet viestisi ja otamme sinuun yhteyttä pian. Voit varata heti maksuttoman kartoituspuhelun alla olevasta kalenterista – se nopeuttaa prosessia.</p>
+
+            <!-- CALENDLY PLACEHOLDER -->
+            <div class="calendly-container">
+                <div id="calendly" class="calendly-placeholder">
+                    <p><strong>📅 Varaa aika kalenterista</strong></p>
+                    <p style="font-size: 0.95rem; margin-top: 1rem;">
+                        Tähän integroituu Calendly, Koalenteri tai muu varaustyökalu.<br>
+                        Lisää kalenteriwidgetin JavaScript-koodi tähän kohtaan.
+                    </p>
+                    
+                    <!-- CALENDLY INTEGRAATIO-OHJE -->
+                    <!-- 
+                    Lisää tähän Calendly embed-koodi:
+                    
+                    <div class="calendly-inline-widget" 
+                         data-url="https://calendly.com/yourname/30min" 
+                         style="min-width:320px;height:630px;">
+                    </div>
+                    <script type="text/javascript" 
+                            src="https://assets.calendly.com/assets/external/widget.js" 
+                            async>
+                    </script>
+                    -->
+                </div>
+            </div>
+
+            <!-- LISÄTIETOJA -->
+            <div class="info-box">
+                <h3>Mitä seuraavaksi tapahtuu?</h3>
+                <p>1️⃣ Saat vahvistusviestin sähköpostiisi (tarkista myös roskaposti)</p>
+                <p>2️⃣ Voit varata ajan yllä olevasta kalenterista</p>
+                <p>3️⃣ Otamme yhteyttä 1–2 arkipäivän kuluessa</p>
+                <p>4️⃣ Keskustelemme tarpeistasi ja räätälöimme ratkaisun</p>
+            </div>
+
+            <!-- YHTEYSTIEDOT -->
+            <div class="contact-options">
+                <div class="contact-card">
+                    <div class="contact-card-icon">📞</div>
+                    <h4>Soita meille</h4>
+                    <a href="tel:+358123456789">+358 12 345 6789</a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-card-icon">✉️</div>
+                    <h4>Lähetä sähköpostia</h4>
+                    <a href="mailto:info@alykonsultti.fi">info@alykonsultti.fi</a>
+                </div>
+            </div>
+
+            <!-- TAKAISIN ETUSIVULLE -->
+            <a href="index.html" class="back-home">← Takaisin etusivulle</a>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Älykonsultti. Kaikki oikeudet pidätetään.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Konfetti-animaatio (valinnainen)
+        console.log('🎉 Kiitos yhteydenotostasi!');
+        
+        // Tallennetut tiedot (jos tarvitaan)
+        const savedData = localStorage.getItem('alykonsultti_lead');
+        if (savedData) {
+            console.log('Tallennetut tiedot:', JSON.parse(savedData));
+        }
+    </script>
+
+</body>
+</html>
