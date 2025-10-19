@@ -634,9 +634,6 @@ a {
     cursor: pointer;
     gap: 5px;
     z-index: 1001;
-}
-
-.hamburger {
     background: none;
     border: none;
     padding: 0.5rem;
