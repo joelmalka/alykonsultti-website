@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ==========================================
-    // LOMAKKEEN KÄSITTELY - CALENDLY REDIRECT
+    // LOMAKKEEN KÄSITTELY - FORMSPREE + CALENDLY
     // ==========================================
     
     const contactForm = document.getElementById('contactForm');
@@ -128,13 +128,38 @@ document.addEventListener('DOMContentLoaded', function() {
             // Näytä latausanimaatio napissa
             const submitButton = contactForm.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
-            submitButton.textContent = 'Ohjataan ajanvaraukseen...';
+            submitButton.textContent = 'Lähetetään...';
             submitButton.disabled = true;
             
-            // Ohjaa Calendly-sivulle
-            setTimeout(function() {
-                window.location.href = 'https://calendly.com/teamalykonsultti/30min';
-            }, 500);
+            // Lähetä lomakedata Formspreehen
+            const formData = new FormData(contactForm);
+            
+            fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Onnistui! Ohjaa Calendlyyn
+                    submitButton.textContent = 'Ohjataan ajanvaraukseen...';
+                    setTimeout(function() {
+                        window.location.href = 'https://calendly.com/teamalykonsultti/30min';
+                    }, 1000);
+                } else {
+                    // Virhe
+                    submitButton.textContent = 'Virhe! Yritä uudelleen';
+                    submitButton.disabled = false;
+                    alert('Lomakkeen lähetys epäonnistui. Yritä uudelleen.');
+                }
+            })
+            .catch(error => {
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                alert('Lomakkeen lähetys epäonnistui. Yritä uudelleen.');
+            });
         });
     }
 
