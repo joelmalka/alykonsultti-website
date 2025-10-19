@@ -204,6 +204,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // ==========================================
+    // "MUU" CHECKBOX - NÄYTÄ TEKSTIKENTTÄ
+    // ==========================================
+    
+    const muuCheckbox = document.getElementById('muuCheckbox');
+    const muuKentta = document.getElementById('muuKentta');
+    
+    if (muuCheckbox && muuKentta) {
+        muuCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                muuKentta.style.display = 'block';
+            } else {
+                muuKentta.style.display = 'none';
+                // Tyhjennä kenttä kun ruksi poistetaan
+                const muuInput = muuKentta.querySelector('input');
+                if (muuInput) muuInput.value = '';
+            }
+        });
+    }
 
     // ==========================================
     // PERFORMANCE: LAZY LOADING IMAGES
