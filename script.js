@@ -73,9 +73,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // SMOOTH SCROLL NAVIGAATIOLLE
     // ==========================================
     
-    const navLinks = document.querySelectorAll('a[href^="#"]');
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
     
-    navLinks.forEach(link => {
+    anchorLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
