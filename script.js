@@ -73,6 +73,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // SMOOTH SCROLL NAVIGAATIOLLE
     // ==========================================
     
+    // Käsittele scroll-linkit etusivulla (esim. /meista, /lomake)
+    const scrollLinks = document.querySelectorAll('.scroll-link');
+    
+    scrollLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('data-target');
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                const navHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = targetSection.offsetTop - navHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Käsittele #-linkit (vanha tapa yhteensopivuuden vuoksi)
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     
     anchorLinks.forEach(link => {
