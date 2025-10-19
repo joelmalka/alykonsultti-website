@@ -35,3 +35,4 @@ Sivusto: [alykonsultti.netlify.app](https://alykonsultti.netlify.app)
 ---
 
 © 2025 Älykonsultti. Kaikki oikeudet pidätetään.
+# alykonsultti-website
