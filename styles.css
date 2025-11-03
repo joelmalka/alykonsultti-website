@@ -250,6 +250,13 @@ a {
     transform: translateY(20px);
 }
 
+.service-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
 .service-card.visible {
     opacity: 1;
     transform: translateY(0);
