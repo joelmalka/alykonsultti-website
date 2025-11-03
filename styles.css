@@ -247,12 +247,34 @@ a {
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hehku-efekti napin alle */
+.cta-button::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 30px;
+    background: radial-gradient(ellipse at center, rgba(244, 184, 142, 0.4) 0%, transparent 70%);
+    filter: blur(15px);
+    opacity: 0.6;
+    z-index: -1;
 }
 
 .cta-button:hover {
     background: var(--hover-peach);
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(244, 184, 142, 0.4);
+}
+
+.cta-button:hover::after {
+    opacity: 0.8;
+    height: 35px;
 }
 
 /* ==========================================
