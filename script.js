@@ -70,6 +70,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ==========================================
+    // LOMAKEKENTTIEN ANIMAATIO
+    // ==========================================
+    
+    const formGroups = document.querySelectorAll('.form-group');
+    const submitButton = document.querySelector('.contact-form button[type="submit"]');
+    
+    const formObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    formGroups.forEach(group => {
+        formObserver.observe(group);
+    });
+    
+    if (submitButton) {
+        formObserver.observe(submitButton);
+    }
+
+    // ==========================================
     // SMOOTH SCROLL NAVIGAATIOLLE
     // ==========================================
     
@@ -221,6 +247,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Tyhjennä kenttä kun ruksi poistetaan
                 const muuInput = muuKentta.querySelector('input');
                 if (muuInput) muuInput.value = '';
+            }
+        });
+    }
+    
+    // ==========================================
+    // SCROLL INDICATOR - PIILOTA SCROLLATESSA
+    // ==========================================
+    
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    
+    if (scrollIndicator) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                scrollIndicator.classList.add('hidden');
+            } else {
+                scrollIndicator.classList.remove('hidden');
             }
         });
     }
