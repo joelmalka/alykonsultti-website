@@ -57,10 +57,28 @@ body {
     font-family: var(--font-main);
     color: var(--text-dark);
     line-height: 1.6;
-    background: var(--main-gradient);
+    background: linear-gradient(180deg,
+        #7BA3B8 0%,
+        #9AB5B8 15%,
+        #C4BDA0 30%,
+        #E8A87C 50%,
+        #C4BDA0 70%,
+        #9AB5B8 85%,
+        #7BA3B8 100%);
+    background-size: 100% 200%;
     background-attachment: fixed;
     min-height: 100vh;
     overflow-x: hidden;
+    animation: sunRise 20s ease-in-out infinite;
+}
+
+@keyframes sunRise {
+    0%, 100% {
+        background-position: 0% 100%;
+    }
+    50% {
+        background-position: 0% 0%;
+    }
 }
 
 .container {
