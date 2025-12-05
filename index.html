@@ -31,10 +31,10 @@
     <meta name="author" content="Älykonsultti">
     <link rel="canonical" href="https://älykonsultti.com/">
     
-    <!-- Google Fonts: Inter & Playfair Display -->
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -58,9 +58,8 @@
         <div class="container">
             <div class="nav-content">
                 <div class="logo">
-                    <a href="/">
-                        <span class="logo-text">Your Site Title</span>
-                    </a>
+                    <img src="logo.png" alt="Älykonsultti" class="logo-image">
+                    <span class="logo-text">ÄLYKONSULTTI</span>
                 </div>
                 <button class="hamburger" id="hamburger" aria-label="Toggle menu">
                     <span></span>
@@ -68,9 +67,9 @@
                     <span></span>
                 </button>
                 <div class="nav-links" id="navLinks">
-                    <a href="/palvelut">Services</a>
-                    <a href="#meista">About</a>
-                    <a href="#lomake">Contact</a>
+                    <a href="/palvelut">Palvelut</a>
+                    <a href="#meista">Meistä</a>
+                    <a href="#lomake" class="cta-button-small">Varaa kartoitus</a>
                 </div>
             </div>
         </div>
@@ -80,48 +79,130 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content fade-in">
-                <h1>Tekoälyratkaisuja,<br>jotka säästävät<br>aikaa ja<br>kasvattavat<br>tulosta.</h1>
-                <a href="#lomake" class="cta-button">Kartoitus</a>
+                <h1>Tekoälyratkaisuja, jotka säästävät aikaa ja kasvattavat tulosta.</h1>
+                <p class="hero-subtitle">Autamme suomalaisia yrityksiä ottamaan tekoälyn käyttöön tehokkaasti ja turvallisesti – ilman teknistä taustaa.</p>
+                <a href="#lomake" class="cta-button">Varaa maksuton kartoitus</a>
             </div>
         </div>
+        <div class="hero-gradient"></div>
     </section>
+
+    <!-- SCROLL INDICATOR -->
+    <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+    </div>
 
     <!-- LOMAKE SECTION -->
     <section id="lomake" class="form-section">
         <div class="container">
             <div class="form-wrapper fade-in">
-                <div class="form-info">
-                    <h2>Contact Us</h2>
-                    <p class="form-subtitle">Interested in working together? Fill out some info and we will be in touch shortly. We can't wait to hear from you!</p>
-                </div>
-
+                <h2>Aloita maksuton tekoälykartoitus</h2>
+                <p class="form-subtitle">Täytä lyhyt lomake, niin sovitaan jatkokeskustelu.</p>
+                
                 <form id="contactForm" class="contact-form" action="https://formspree.io/f/mqayjadl" method="POST">
-
+                    
                     <div class="form-group">
-                        <label>Name <span class="required">(required)</span></label>
-                        <div class="name-fields">
-                            <div class="name-field">
-                                <input type="text" id="firstName" name="firstName" required>
-                                <span class="field-label">First Name</span>
-                            </div>
-                            <div class="name-field">
-                                <input type="text" id="lastName" name="lastName" required>
-                                <span class="field-label">Last Name</span>
-                            </div>
-                        </div>
+                        <label for="name">Nimi *</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email <span class="required">(required)</span></label>
+                        <label for="email">Sähköposti *</label>
                         <input type="email" id="email" name="email" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Message <span class="required">(required)</span></label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <label for="company">Yrityksen nimi *</label>
+                        <input type="text" id="company" name="company" required>
                     </div>
 
-                    <button type="submit" class="cta-button">Send</button>
+                    <div class="form-group">
+                        <label for="industry">Toimiala *</label>
+                        <input type="text" id="industry" name="industry" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mitä haluat kehittää tekoälyn avulla? *</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="development[]" value="asiakaspalvelu">
+                                <span class="checkbox-custom"></span>
+                                Asiakaspalvelu
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="development[]" value="markkinointi">
+                                <span class="checkbox-custom"></span>
+                                Markkinointi
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="development[]" value="automaatio">
+                                <span class="checkbox-custom"></span>
+                                Automaatio
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="development[]" value="analytiikka">
+                                <span class="checkbox-custom"></span>
+                                Analytiikka
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="development[]" value="tekoalyosaaminen">
+                                <span class="checkbox-custom"></span>
+                                Oman tekoälyosaamisen kehittäminen
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="development[]" value="muu" id="muuCheckbox">
+                                <span class="checkbox-custom"></span>
+                                Muu
+                            </label>
+                        </div>
+                        <div id="muuKentta" style="display: none; margin-top: 1rem;">
+                            <input type="text" name="development_muu" placeholder="Kerro tarkemmin..." style="width: 100%; padding: 0.9rem; border: 2px solid #E0E0E0; border-radius: 8px; font-family: var(--font-main); font-size: 1rem;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Onko tekoäly jo käytössä? *</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="radio" name="ai-status" value="ei-viela" required>
+                                <span class="checkbox-custom"></span>
+                                Ei vielä
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="radio" name="ai-status" value="kokeilussa">
+                                <span class="checkbox-custom"></span>
+                                Kokeilussa
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="radio" name="ai-status" value="kaytossa">
+                                <span class="checkbox-custom"></span>
+                                Käytössä
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kuinka pian haluatte aloittaa? *</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="radio" name="timeline" value="heti" required>
+                                <span class="checkbox-custom"></span>
+                                Heti
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="radio" name="timeline" value="1-3kk">
+                                <span class="checkbox-custom"></span>
+                                1–3 kk
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="radio" name="timeline" value="myohemmin">
+                                <span class="checkbox-custom"></span>
+                                Myöhemmin
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="cta-button">Lähetä ja siirry ajanvaraukseen</button>
 
                 </form>
             </div>
