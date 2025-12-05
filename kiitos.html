@@ -6,10 +6,10 @@
     <title>Kiitos yhteydenotosta – Älykonsultti</title>
     <meta name="description" content="Kiitos yhteydenotostasi. Varaa maksuton tekoälykartoitus kalenteristamme.">
     
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Inter & Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -23,14 +23,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--light-bg) 0%, var(--white) 100%);
+            background: transparent;
             padding: 2rem;
         }
 
         .thank-you-content {
             text-align: center;
             max-width: 800px;
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
             padding: 4rem 3rem;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
@@ -46,7 +47,8 @@
         .thank-you-content h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: var(--dark-blue);
+            color: var(--text-dark);
+            font-family: var(--font-heading);
         }
 
         .thank-you-content p {
@@ -59,14 +61,14 @@
         .calendly-container {
             margin: 3rem 0;
             padding: 2rem;
-            background: var(--light-bg);
+            background: rgba(232, 168, 124, 0.1);
             border-radius: 15px;
-            border: 2px dashed var(--primary-blue);
+            border: 2px dashed var(--secondary-peach);
         }
 
         .calendly-placeholder {
             font-size: 1.1rem;
-            color: var(--dark-blue);
+            color: var(--text-dark);
             padding: 3rem;
             background: var(--white);
             border-radius: 10px;
@@ -75,13 +77,13 @@
         .back-home {
             display: inline-block;
             margin-top: 2rem;
-            color: var(--dark-blue);
+            color: var(--secondary-peach);
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
         .back-home:hover {
-            color: var(--secondary-peach);
+            color: var(--hover-peach);
             transform: translateX(-5px);
         }
 
@@ -106,7 +108,7 @@
         }
 
         .info-box {
-            background: var(--light-bg);
+            background: rgba(232, 168, 124, 0.1);
             padding: 1.5rem;
             border-radius: 10px;
             margin-top: 2rem;
@@ -115,7 +117,8 @@
         .info-box h3 {
             font-size: 1.2rem;
             margin-bottom: 1rem;
-            color: var(--dark-blue);
+            color: var(--text-dark);
+            font-family: var(--font-heading);
         }
 
         .info-box p {
@@ -131,7 +134,7 @@
         }
 
         .contact-card {
-            background: var(--light-bg);
+            background: rgba(255, 255, 255, 0.9);
             padding: 1.5rem;
             border-radius: 10px;
             transition: all 0.3s ease;
@@ -145,6 +148,14 @@
         .contact-card-icon {
             font-size: 2rem;
             margin-bottom: 0.5rem;
+        }
+
+        .contact-card a {
+            color: var(--secondary-peach);
+        }
+
+        .contact-card a:hover {
+            color: var(--hover-peach);
         }
 
         @media (max-width: 768px) {
