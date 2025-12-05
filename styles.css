@@ -59,13 +59,14 @@ body {
     line-height: 1.6;
     background: linear-gradient(180deg,
         #4A7A8C 0%,
-        #5B8A9C 10%,
-        #7BA3B8 25%,
-        #9AB5B8 40%,
-        #C4BDA0 55%,
-        #E8A87C 70%,
-        #F0B080 85%,
-        #E8A87C 100%);
+        #5B8A9C 8%,
+        #7BA3B8 18%,
+        #9AB5B8 30%,
+        #C4BDA0 45%,
+        #E8A87C 60%,
+        #7BA3B8 75%,
+        #5B8A9C 88%,
+        #4A7A8C 100%);
     background-size: 100% 300%;
     background-position: 0% 100%;
     background-attachment: fixed;
