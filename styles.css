@@ -58,14 +58,16 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     background: linear-gradient(180deg,
-        #7BA3B8 0%,
-        #9AB5B8 15%,
-        #C4BDA0 30%,
-        #E8A87C 50%,
-        #C4BDA0 70%,
-        #9AB5B8 85%,
-        #7BA3B8 100%);
-    background-size: 100% 200%;
+        #4A7A8C 0%,
+        #5B8A9C 10%,
+        #7BA3B8 25%,
+        #9AB5B8 40%,
+        #C4BDA0 55%,
+        #E8A87C 70%,
+        #F0B080 85%,
+        #E8A87C 100%);
+    background-size: 100% 300%;
+    background-position: 0% 100%;
     background-attachment: fixed;
     min-height: 100vh;
     overflow-x: hidden;

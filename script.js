@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ==========================================
     // SCROLL-BASED SUNSET GRADIENT ANIMATION
-    // Gradient rises from bottom (warm colors) to top (blue) as user scrolls
+    // Orange starts at bottom, rises up, then transitions to darker blue
     // ==========================================
 
     function updateGradientPosition() {
@@ -279,8 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Calculate scroll percentage (0 to 1)
         const scrollPercent = Math.min(scrollTop / docHeight, 1);
 
-        // Start at bottom (100%) and move to top (0%) as user scrolls
-        // This creates the sunrise effect: warm colors at start, blue at end
+        // Start at 100% (bottom - orange visible) and move to 0% (top - dark blue)
         const gradientPosition = 100 - (scrollPercent * 100);
 
         document.body.style.backgroundPosition = `0% ${gradientPosition}%`;
@@ -298,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Set initial position (warm colors at bottom visible)
+    // Set initial position (orange at bottom visible)
     updateGradientPosition();
 
     // ==========================================
