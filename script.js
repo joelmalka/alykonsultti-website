@@ -254,9 +254,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==========================================
     // SCROLL INDICATOR - PIILOTA SCROLLATESSA
     // ==========================================
-    
+
     const scrollIndicator = document.querySelector('.scroll-indicator');
-    
+
     if (scrollIndicator) {
         window.addEventListener('scroll', function() {
             if (window.scrollY > 100) {
@@ -266,6 +266,40 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // ==========================================
+    // SCROLL-BASED SUNSET GRADIENT ANIMATION
+    // Gradient rises from bottom (warm colors) to top (blue) as user scrolls
+    // ==========================================
+
+    function updateGradientPosition() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        // Calculate scroll percentage (0 to 1)
+        const scrollPercent = Math.min(scrollTop / docHeight, 1);
+
+        // Start at bottom (100%) and move to top (0%) as user scrolls
+        // This creates the sunrise effect: warm colors at start, blue at end
+        const gradientPosition = 100 - (scrollPercent * 100);
+
+        document.body.style.backgroundPosition = `0% ${gradientPosition}%`;
+    }
+
+    // Run on scroll with throttling for performance
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                updateGradientPosition();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    // Set initial position (warm colors at bottom visible)
+    updateGradientPosition();
 
     // ==========================================
     // PERFORMANCE: LAZY LOADING IMAGES
