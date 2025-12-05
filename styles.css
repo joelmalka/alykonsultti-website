@@ -156,17 +156,19 @@ a {
 }
 
 .cta-button-small {
-    background: var(--secondary-peach);
+    background: linear-gradient(135deg, #D35400 0%, #E67E22 100%);
     color: var(--white) !important;
     padding: 0.6rem 1.5rem;
     border-radius: 8px;
     font-weight: 600;
+    box-shadow: 0 2px 10px rgba(211, 84, 0, 0.3);
 }
 
 .cta-button-small:hover {
-    background: var(--hover-peach);
+    background: linear-gradient(135deg, #C0392B 0%, #D35400 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(232, 168, 124, 0.4);
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4);
+    opacity: 1;
 }
 
 /* ==========================================
@@ -293,9 +295,9 @@ a {
 
 .cta-button {
     display: inline-block;
-    background: var(--secondary-peach);
+    background: linear-gradient(135deg, #D35400 0%, #E67E22 100%);
     color: var(--white);
-    padding: 1rem 2.5rem;
+    padding: 1.1rem 2.8rem;
     border-radius: 8px;
     font-weight: 600;
     font-size: 1rem;
@@ -306,12 +308,13 @@ a {
     z-index: 1;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4);
 }
 
 .cta-button:hover {
-    background: var(--hover-peach);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(232, 168, 124, 0.4);
+    background: linear-gradient(135deg, #C0392B 0%, #D35400 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(211, 84, 0, 0.5);
 }
 
 /* ==========================================
