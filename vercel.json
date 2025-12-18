@@ -13,10 +13,6 @@
     {
       "source": "/sahkodemo",
       "destination": "/sahkodemo.html"
-    },
-    {
-      "source": "/laskudemo",
-      "destination": "/laskudemo.html"
     }
   ],
   "functions": {
