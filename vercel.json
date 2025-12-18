@@ -9,6 +9,19 @@
     {
       "source": "/lomake",
       "destination": "/index.html"
+    },
+    {
+      "source": "/sahkodemo",
+      "destination": "/sahkodemo.html"
+    },
+    {
+      "source": "/laskudemo",
+      "destination": "/laskudemo.html"
     }
-  ]
+  ],
+  "functions": {
+    "api/*.js": {
+      "runtime": "nodejs20.x"
+    }
+  }
 }

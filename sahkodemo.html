@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Sähköfirma Botti Demo - Älykonsultti</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function SahkoBot() {
+      const [messages, setMessages] = useState([
+        { role: 'assistant', content: 'Hei! Olen sähköfirman asiakaspalvelija. Miten voin auttaa sinua tänään?' }
+      ]);
+      const [input, setInput] = useState('');
+      const [isLoading, setIsLoading] = useState(false);
+      const messagesEndRef = React.useRef(null);
+
+      const optionSets = {
+        service: [
+          { label: 'Vikakorjaus', value: 'Tarvitsen apua vikakorjaukseen' },
+          { label: 'Latausasema', value: 'Haluan sähköauton latausaseman' },
+          { label: 'Remontti', value: 'Tarvitsen sähkötöitä remonttiin' },
+          { label: 'Uudisasennus', value: 'Tarvitsen uudisasennusta' },
+          { label: 'Tarkastus', value: 'Haluan sähkötarkastuksen' }
+        ],
+        urgency: [
+          { label: 'Heti / Kiireellinen', value: 'Asia on kiireellinen, tarvitsen apua heti' },
+          { label: 'Tällä viikolla', value: 'Tällä viikolla olisi hyvä' },
+          { label: 'Kuukauden sisällä', value: 'Kuukauden sisällä käy hyvin' },
+          { label: 'Ei kiire', value: 'Ei ole kiire, voin odottaa' }
+        ],
+        location: [
+          { label: 'Helsinki', value: 'Helsinki' },
+          { label: 'Espoo', value: 'Espoo' },
+          { label: 'Vantaa', value: 'Vantaa' },
+          { label: 'Tampere', value: 'Tampere' },
+          { label: 'Turku', value: 'Turku' }
+        ],
+        building: [
+          { label: 'Omakotitalo', value: 'Omakotitalo' },
+          { label: 'Rivitalo', value: 'Rivitalo' },
+          { label: 'Kerrostalo', value: 'Kerrostalo' },
+          { label: 'Liiketila', value: 'Liiketila' }
+        ],
+        confirm: [
+          { label: 'Kyllä, tiedot ovat oikein', value: 'Kyllä, tiedot ovat oikein' },
+          { label: 'Haluan muuttaa jotain', value: 'Haluan muuttaa jotain tietoa' }
+        ]
+      };
+
+      const getQuickOptions = () => {
+        if (messages.length === 0) return optionSets.service;
+
+        const lastAssistantMsg = [...messages].reverse().find(m => m.role === 'assistant');
+        if (!lastAssistantMsg) return optionSets.service;
+
+        const text = lastAssistantMsg.content.toLowerCase();
+
+        if (text.includes('yhteenveto') || (text.includes('oikein') && text.includes('?')) || text.includes('vahvista')) {
+          return optionSets.confirm;
+        }
+
+        if (text.includes('yhteystiedot') || text.includes('puhelinnumero') || text.includes('sähköposti') ||
+            (text.includes('nimi') && (text.includes('puhelin') || text.includes('numero')))) {
+          return null;
+        }
+
+        if (text.includes('osoite') || text.includes('paikkakun') || text.includes('missä') ||
+            text.includes('mihin') || text.includes('sijainti') || text.includes('alue')) {
+          return optionSets.location;
+        }
+
+        if ((text.includes('kuinka kiire') || text.includes('kiireellinen') ||
+            (text.includes('milloin') && text.includes('?'))) && !text.includes('osoite')) {
+          return optionSets.urgency;
+        }
+
+        if (text.includes('minkälainen') && (text.includes('rakennus') || text.includes('talo') || text.includes('kohde'))) {
+          return optionSets.building;
+        }
+
+        if (text.includes('kuvaa') || text.includes('kerro tarkemmin') || text.includes('lisätietoja') ||
+            (text.includes('millainen') && text.includes('?'))) {
+          return null;
+        }
+
+        if (text.includes('auttaa') || text.includes('miten voin') || messages.length === 1) {
+          return optionSets.service;
+        }
+
+        return null;
+      };
+
+      const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      useEffect(() => {
+        scrollToBottom();
+      }, [messages]);
+
+      const sendMessageText = async (text) => {
+        if (!text.trim() || isLoading) return;
+
+        const userMessage = text.trim();
+        setInput('');
+
+        const newMessages = [...messages, { role: 'user', content: userMessage }];
+        setMessages(newMessages);
+        setIsLoading(true);
+
+        try {
+          const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              messages: newMessages.map(m => ({ role: m.role, content: m.content }))
+            })
+          });
+
+          const data = await response.json();
+
+          if (data.error) {
+            throw new Error(data.error);
+          }
+
+          setMessages([...newMessages, { role: 'assistant', content: data.reply }]);
+        } catch (error) {
+          console.error('Error:', error);
+          setMessages([...newMessages, {
+            role: 'assistant',
+            content: 'Pahoittelut, jokin meni pieleen. Yritä uudelleen.'
+          }]);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      const sendMessage = async (e) => {
+        e.preventDefault();
+        sendMessageText(input);
+      };
+
+      const handleQuickOption = (option) => {
+        sendMessageText(option.value);
+      };
+
+      const reset = () => {
+        setMessages([
+          { role: 'assistant', content: 'Hei! Olen sähköfirman asiakaspalvelija. Miten voin auttaa sinua tänään?' }
+        ]);
+      };
+
+      return (
+        <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-4">
+              <h1 className="text-2xl font-semibold text-gray-800">
+                Sähköpalvelut
+              </h1>
+              <p className="text-gray-500 text-sm">
+                AI-pohjainen asiakaspalvelu demo
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+              <div className="bg-gray-900 text-white px-4 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center font-bold">
+                    S
+                  </div>
+                  <div>
+                    <p className="font-medium">Sähkö-Assistentti</p>
+                    <p className="text-xs text-gray-400">Online</p>
+                  </div>
+                </div>
+                <button
+                  onClick={reset}
+                  className="text-gray-400 hover:text-white text-sm"
+                >
+                  Uusi keskustelu
+                </button>
+              </div>
+
+              <div className="h-[450px] overflow-y-auto p-4 space-y-4 bg-gray-50">
+                {messages.map((msg, idx) => (
+                  <div
+                    key={idx}
+                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] px-4 py-3 rounded-2xl ${
+                        msg.role === 'user'
+                          ? 'bg-gray-900 text-white rounded-br-sm'
+                          : 'bg-white text-gray-800 border border-gray-200 rounded-bl-sm'
+                      }`}
+                    >
+                      <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                    </div>
+                  </div>
+                ))}
+
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-white border border-gray-200 px-4 py-3 rounded-2xl rounded-bl-sm">
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+
+              {!isLoading && getQuickOptions() && (
+                <div className="px-4 py-3 border-t border-gray-100 bg-gray-50">
+                  <p className="text-xs text-gray-500 mb-2">Valitse vaihtoehto tai kirjoita oma viesti:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {getQuickOptions().map((option, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleQuickOption(option)}
+                        className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-100 hover:border-gray-400 transition-colors"
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={sendMessage} className="p-4 border-t border-gray-200 bg-white">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Kirjoita viesti..."
+                    className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-gray-900"
+                    disabled={isLoading}
+                  />
+                  <button
+                    type="submit"
+                    disabled={isLoading || !input.trim()}
+                    className="px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                  >
+                    Lähetä
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div className="text-center mt-4 text-xs text-gray-400">
+              Demo - Älykonsultti.com
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      return <SahkoBot />;
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
