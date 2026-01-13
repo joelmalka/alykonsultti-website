@@ -64,6 +64,52 @@
         ]
       };
 
+      // Check what the user has already answered in the conversation
+      const getAnsweredTopics = () => {
+        const userMessages = messages.filter(m => m.role === 'user').map(m => m.content.toLowerCase());
+        const allUserText = userMessages.join(' ');
+
+        const answered = {
+          service: false,
+          frequency: false,
+          location: false,
+          propertyType: false,
+          size: false
+        };
+
+        // Check for service type
+        const serviceKeywords = ['kotisiivous', 'toimistosiivous', 'muuttosiivous', 'ikkunanpesu', 'perussiivous', 'siivousta'];
+        if (serviceKeywords.some(k => allUserText.includes(k))) {
+          answered.service = true;
+        }
+
+        // Check for frequency
+        const frequencyKeywords = ['kertaluon', 'viikoittai', 'joka toinen viikko', 'kuukausittain', 'säännöllis'];
+        if (frequencyKeywords.some(k => allUserText.includes(k))) {
+          answered.frequency = true;
+        }
+
+        // Check for location
+        const locationKeywords = ['helsinki', 'espoo', 'vantaa', 'tampere', 'turku', 'oulu', 'jyväskylä', 'lahti', 'kuopio'];
+        if (locationKeywords.some(k => allUserText.includes(k))) {
+          answered.location = true;
+        }
+
+        // Check for property type
+        const propertyKeywords = ['asunto', 'omakotitalo', 'rivitalo', 'kerrostalo', 'toimisto', 'liiketila'];
+        if (propertyKeywords.some(k => allUserText.includes(k))) {
+          answered.propertyType = true;
+        }
+
+        // Check for size
+        const sizeKeywords = ['neliö', 'm²', 'm2', 'neliömetri'];
+        if (sizeKeywords.some(k => allUserText.includes(k))) {
+          answered.size = true;
+        }
+
+        return answered;
+      };
+
       const getQuickOptions = () => {
         if (messages.length === 0) return optionSets.service;
 
@@ -71,6 +117,7 @@
         if (!lastAssistantMsg) return optionSets.service;
 
         const text = lastAssistantMsg.content.toLowerCase();
+        const answered = getAnsweredTopics();
 
         if (text.includes('yhteenveto') || (text.includes('oikein') && text.includes('?')) || text.includes('vahvista')) {
           return optionSets.confirm;
@@ -81,27 +128,27 @@
           return null;
         }
 
-        if (text.includes('osoite') || text.includes('paikkakun') || text.includes('missä') ||
-            text.includes('mihin') || text.includes('sijainti') || text.includes('alue')) {
+        if ((text.includes('osoite') || text.includes('paikkakun') || text.includes('missä') ||
+            text.includes('mihin') || text.includes('sijainti') || text.includes('alue')) && !answered.location) {
           return optionSets.location;
         }
 
-        if (text.includes('kuinka usein') || text.includes('säännöllis') || text.includes('toistuvuus') ||
-            text.includes('kertaluon') || text.includes('jatkuva')) {
+        if ((text.includes('kuinka usein') || text.includes('säännöllis') || text.includes('toistuvuus') ||
+            text.includes('kertaluon') || text.includes('jatkuva')) && !answered.frequency) {
           return optionSets.frequency;
         }
 
-        if (text.includes('neliö') || text.includes('koko') || text.includes('kuinka iso') ||
-            text.includes('kuinka suuri') || text.includes('pinta-ala')) {
+        if ((text.includes('neliö') || text.includes('koko') || text.includes('kuinka iso') ||
+            text.includes('kuinka suuri') || text.includes('pinta-ala')) && !answered.size) {
           return optionSets.size;
         }
 
-        if (text.includes('minkälainen') && (text.includes('tila') || text.includes('kohde'))) {
+        if ((text.includes('minkälainen') && (text.includes('tila') || text.includes('kohde'))) && !answered.propertyType) {
           return optionSets.propertyType;
         }
 
-        if ((text.includes('asunto') || text.includes('talo') || text.includes('toimisto')) &&
-            text.includes('?') && !text.includes('neliö')) {
+        if (((text.includes('asunto') || text.includes('talo') || text.includes('toimisto')) &&
+            text.includes('?') && !text.includes('neliö')) && !answered.propertyType) {
           return optionSets.propertyType;
         }
 
@@ -110,7 +157,7 @@
           return null;
         }
 
-        if (text.includes('auttaa') || text.includes('miten voin') || messages.length === 1) {
+        if ((text.includes('auttaa') || text.includes('miten voin') || messages.length === 1) && !answered.service) {
           return optionSets.service;
         }
 
