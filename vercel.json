@@ -13,6 +13,10 @@
     {
       "source": "/sahkodemo",
       "destination": "/sahkodemo.html"
+    },
+    {
+      "source": "/siivousdemo",
+      "destination": "/siivousdemo.html"
     }
   ]
 }
